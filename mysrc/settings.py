@@ -28,8 +28,8 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default=[], cast=Csv())
 
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default=[], cast=Csv())
 
 # Application definition
 
@@ -78,13 +78,15 @@ WSGI_APPLICATION = 'mysrc.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-default_dburl = 'sqlite:///' + str(BASE_DIR / 'db.sqlite3')
-#DATABASES = {
-#    'default': config('DATABASE_URL', default=default_dburl, cast=dburl)
-#}
-
 DATABASES = {
-    'default': config('ENGINE','NAME','USER','PASSWORD','HOST','PORT', default=default_dburl, cast=dburl)
+    'default': {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "postgres",
+        "USER": config('POSTGRES_USER', 'postgres'),
+        "PASSWORD": config ('POSTGRES_DB','postgres'),
+        "HOST": config('DB_HOST', 'db'),
+        "PORT": 5432,    
+    }
 }
 
 # Password validation
