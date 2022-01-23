@@ -17,11 +17,7 @@ from django.contrib import admin
 from django.urls import include, path
 from django.http import HttpResponse
 
-#def index(request):
-#    return HttpResponse('<h1>Django Tutorial</h1>')
-
 urlpatterns = [
-    #path('', index, name='index'),
     path('', include('mysrc.core.urls', namespace='core')),
     path('admin/', admin.site.urls),
 ]
