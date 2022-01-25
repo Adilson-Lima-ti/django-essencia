@@ -19,5 +19,6 @@ from django.http import HttpResponse
 
 urlpatterns = [
     path('', include('mysrc.core.urls', namespace='core')),
+    path('expense/', include('mysrc.expense.urls', namespace='expense')),
     path('admin/', admin.site.urls),
 ]

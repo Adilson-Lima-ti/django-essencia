@@ -1,0 +1,43 @@
+<!-- expense_list.html -->
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>
+    Lista de Despesas
+    <a class="btn btn-primary" href="{% url 'expense:expense_create' %}">Adicionar</a>
+  </h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Descrição</th>
+        <th>Pago a</th>
+        <th>Valor</th>
+        <th>Data de vencimento</th>
+        <th>Pago</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for object in object_list %}
+        <tr>
+          <td>
+            <a href="{{ object.get_absolute_url }}">{{ object.description }}</a>
+          </td>
+          <td>{{ object.customer|default:'---' }}</td>
+          <!-- object.customer|dafault( o que colocar qdo não preenchido)-->
+          <td>{{ object.value }}</td>
+          <td>{{ object.payment_date|date:'d/m/Y'|default:'---' }}</td>
+          <td>{% if object.paid == True %}<b>Sim</b>  {%endif%}</td>
+          <td>
+            <a href="#% url 'expense:expense_update' object.pk %#">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="#% url 'expense:expense_delete' object.pk %#" style="padding-left: 7px">
+              <i class="fa fa-close no"></i>
+            </a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock content %}
